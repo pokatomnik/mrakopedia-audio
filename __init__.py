@@ -21,6 +21,7 @@ with open("out/index.json", "w", encoding="utf-8") as file:
     file.write(serialized_json)
 
 for category_title, page_meta in dict.items():
+    page_title = page_meta["title"]
     content_id = page_meta["contentId"]
     input_file_name = content_id + ".md"
     output_file_name = content_id + ".mp3"
