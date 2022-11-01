@@ -69,24 +69,25 @@ def join_wavs(infiles, outfile):
 def convert_from_wav_to_mp3(source_filename, dest_filename):
     AudioSegment.from_file(source_filename).export(dest_filename, format="mp3")
 
-sentences = read_sentences("source.txt")
-sentence_files = []
+def convert_textfile_to_audio(source, dest):
+    sentences = read_sentences(source)
+    sentence_files = []
 
-clean_working_dir()
-for i, sentence in enumerate(sentences):
-    try:
-        audio_paths = model.save_wav(text=sentence,
-                                speaker=speaker,
-                                sample_rate=sample_rate)
-        sentence_filename = 'out/' + str(i) + '.wav'
-        sentence_files.append(sentence_filename)
-        os.rename("test.wav", sentence_filename)
-    except Exception as e:
-        print("Current sentence: " + sentence)
-        logging.error(traceback.format_exc())
+    clean_working_dir()
+    for i, sentence in enumerate(sentences):
+        try:
+            audio_paths = model.save_wav(text=sentence,
+                                    speaker=speaker,
+                                    sample_rate=sample_rate)
+            sentence_filename = 'out/' + str(i) + '.wav'
+            sentence_files.append(sentence_filename)
+            os.rename("test.wav", sentence_filename)
+        except Exception as e:
+            print("Current sentence: " + sentence)
+            logging.error(traceback.format_exc())
 
-join_wavs(sentence_files, "result.wav")
-convert_from_wav_to_mp3("result.wav", "result.mp3")
-os.remove("result.wav")
+    join_wavs(sentence_files, "result.wav")
+    convert_from_wav_to_mp3("result.wav", dest)
+    os.remove("result.wav")
 
-clean_working_dir()
+    clean_working_dir()
