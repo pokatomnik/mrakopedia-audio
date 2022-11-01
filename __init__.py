@@ -1,4 +1,5 @@
 import json
+import os
 from convert import convert_textfile_to_audio
 
 with open("data/index.json", "r", encoding="utf-8") as file:
@@ -31,5 +32,5 @@ for category_title, page_meta in dict.items():
 
     print(page_title)
     print(input_file_path)
-    
-    convert_textfile_to_audio(input_file_path, output_file_path)
+    if not os.path.isfile(output_file_path):
+        convert_textfile_to_audio(input_file_path, output_file_path)

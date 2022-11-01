@@ -86,8 +86,9 @@ def convert_textfile_to_audio(source, dest):
             print("Current sentence: " + sentence)
             logging.error(traceback.format_exc())
 
-    join_wavs(sentence_files, "result.wav")
-    convert_from_wav_to_mp3("result.wav", dest)
-    os.remove("result.wav")
+    if len(sentence_files) > 0:
+        join_wavs(sentence_files, "result.wav")
+        convert_from_wav_to_mp3("result.wav", dest)
+        os.remove("result.wav")
 
     clean_working_dir()
