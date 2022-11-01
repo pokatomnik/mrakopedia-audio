@@ -76,7 +76,7 @@ def convert_textfile_to_audio(source, dest):
     clean_working_dir()
     for i, sentence in enumerate(sentences):
         try:
-            audio_paths = model.save_wav(text=sentence,
+            model.save_wav(text=sentence,
                                     speaker=speaker,
                                     sample_rate=sample_rate)
             sentence_filename = 'out/' + str(i) + '.wav'
