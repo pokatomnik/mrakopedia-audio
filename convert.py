@@ -23,14 +23,14 @@ speaker='baya'
 def split_to_sentences(input):
     list = []
     raw_sentences = []
-    tmp = ""
+    tmp = ''
     for char in input:
         tmp += char
         if char == '.' or char == '?' or char == '!':
             raw_sentences.append(tmp)
             tmp = ''
     for raw_sentence in raw_sentences:
-        sentence = raw_sentence.strip(' \t\n\r').replace('…', '...')
+        sentence = raw_sentence.strip(' \t\n\r').replace('…', '...').replace('#', '').replace('##', '')
         if sentence != '':
             list.append(sentence)
     return list
@@ -50,7 +50,7 @@ def read_sentences(filename):
     return list
 
 def clean_working_dir():
-    for f in glob.glob("./out/*.wav"):
+    for f in glob.glob("./.tmp/*.wav"):
         os.remove(f)
 
 def join_wavs(infiles, outfile):
@@ -79,7 +79,7 @@ def convert_textfile_to_audio(source, dest):
             model.save_wav(text=sentence,
                                     speaker=speaker,
                                     sample_rate=sample_rate)
-            sentence_filename = 'out/' + str(i) + '.wav'
+            sentence_filename = '.tmp/' + str(i) + '.wav'
             sentence_files.append(sentence_filename)
             os.rename("test.wav", sentence_filename)
         except Exception as e:
